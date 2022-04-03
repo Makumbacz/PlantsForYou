@@ -32,6 +32,7 @@ public class AppUserService implements UserDetailsService {
         boolean userExist = appUserRepository.findByEmail(appUser.getEmail()).isPresent();
 
         if(userExist){
+            //TODO repeat email sending after link expiration
             throw new IllegalStateException("Email already taken");
         }
         String encodedPassword = passwordEncoder.encode(appUser.getPassword());
@@ -51,7 +52,6 @@ public class AppUserService implements UserDetailsService {
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        //TODO: SEND EMAIL
         return token;
     }
 
