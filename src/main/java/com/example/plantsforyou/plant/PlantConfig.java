@@ -15,10 +15,12 @@ public class PlantConfig {
         return args -> {
             Plant plant = new Plant(
                     "Monstera deliciosa",
+                    25.12,
                     "Najbardziej pożądana roślina we wnętrzach ostatnich lat, czule nazwana przez nas Grzegorzem, zawdzięcza swoją popularność nie tylko wyjątkowej urodzie, ale też swojej bezproblemowości. Monstera jest jedną z tych roślin, z którymi będziesz żyć długo i szczęśliwie.",
                     PlantTypeOfLight.diffused,
                     PlantCareDifficulty.EASY,
-                    PlantSize.MEDIUM
+                    PlantSize.MEDIUM,
+                    true
             );
             repository.save(plant);
         };
