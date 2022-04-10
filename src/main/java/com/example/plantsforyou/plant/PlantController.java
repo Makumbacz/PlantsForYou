@@ -19,7 +19,7 @@ public class PlantController {
 
     @GetMapping
     public List<Plant> getPlants(){
-        return plantService.getPlants();
+        return plantService.getAllPlants();
     }
 
 }

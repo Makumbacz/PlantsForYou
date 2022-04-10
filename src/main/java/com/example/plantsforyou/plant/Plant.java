@@ -6,7 +6,6 @@ import com.example.plantsforyou.plant.enums.PlantTypeOfLight;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Description;
 
 import javax.persistence.*;
 
@@ -29,20 +28,28 @@ public class Plant {
     private PlantCareDifficulty difficulty;
     @Enumerated(EnumType.STRING)
     private PlantSize size;
-    boolean in_stock;
+    boolean inStock;
 
     public Plant(String name,
                  double price,
                  String description,
                  PlantTypeOfLight typeOfLight,
                  PlantCareDifficulty difficulty,
-                 PlantSize size, boolean in_stock) {
+                 PlantSize size, boolean inStock) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.typeOfLight = typeOfLight;
         this.difficulty = difficulty;
         this.size = size;
-        this.in_stock = in_stock;
+        this.inStock = inStock;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
     }
 }
