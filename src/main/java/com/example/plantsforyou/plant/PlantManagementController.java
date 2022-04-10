@@ -31,18 +31,20 @@ public class PlantManagementController {
     }
 
     @DeleteMapping(path = "{plantID}")
-    public void deletePlant(@PathVariable("plantID") Long plantID){
+    public ResponseEntity deletePlant(@PathVariable("plantID") Long plantID){
+        if(plantService.findPlantById(plantID).isEmpty())
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         plantService.delete(plantID);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    //Nie jestem pewien czy to dobry sposób na przekazanie wartości do update (RequestBody)
     @PutMapping(path = "{plantID}/inStock")
-    public void updatePlantInStock(@PathVariable("plantID") Long plantID, @RequestBody boolean inStock){
+    public void updatePlantInStock(@PathVariable("plantID") Long plantID, @RequestParam() boolean inStock){
         plantService.updateInStock(plantID, inStock);
     }
 
     @PutMapping(path = "{plantID}/price")
-    public void updatePlantPrice(@PathVariable("plantID") Long plantID, @RequestBody Double price){
+    public void updatePlantPrice(@PathVariable("plantID") Long plantID, @RequestParam() Double price){
         plantService.updatePrice(plantID, price);
     }
 }

@@ -18,6 +18,7 @@ public class PlantService {
     public List<Plant> getAllPlants(){
         return plantRepository.findAll();
     }
+    public Optional<Plant> findPlantById(Long plantID){ return plantRepository.findById(plantID); }
     public void addPlant(Plant plant){
         plantRepository.save(plant);
     }
