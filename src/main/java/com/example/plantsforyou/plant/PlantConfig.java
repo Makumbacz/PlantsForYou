@@ -23,6 +23,16 @@ public class PlantConfig {
                     true
             );
             repository.save(plant);
+            plant = new Plant(
+                    "Scindapsus pictus 'Argyraeus'",
+                    59.0,
+                    "Nie ma wielkich wymagań i zdecydowanie nadaje się dla początkujących opiekunów. Z Agatką łatwo stworzysz wrażenie gęstej dżungli. Wystarczy, że spuścisz jej pnącza kurtyną z wysokiej półki, albo belki pod sufitem.",
+                    PlantTypeOfLight.direct,
+                    PlantCareDifficulty.MEDIUM,
+                    PlantSize.MEDIUM,
+                    false
+            );
+            repository.save(plant);
         };
     }
 }
