@@ -24,16 +24,12 @@ public class PlantManagementController {
 
     @PostMapping
     public ResponseEntity addNewPlant(@RequestBody Plant plant){
-        if(plantService.getAllPlants().contains(plant))
-            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         plantService.addPlant(plant);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{plantID}")
     public ResponseEntity deletePlant(@PathVariable("plantID") Long plantID){
-        if(plantService.findPlantById(plantID).isEmpty())
-            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         plantService.delete(plantID);
         return new ResponseEntity(HttpStatus.OK);
     }
