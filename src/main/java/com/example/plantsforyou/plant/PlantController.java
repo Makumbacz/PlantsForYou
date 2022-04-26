@@ -22,4 +22,8 @@ public class PlantController {
         return plantService.getAllPlants();
     }
 
+    @GetMapping(path = "no-auth") //ONLY FOR TESTING
+    public List<Plant> getPlantsNoAuth(){
+        return plantService.getAllPlants();
+    }
 }
