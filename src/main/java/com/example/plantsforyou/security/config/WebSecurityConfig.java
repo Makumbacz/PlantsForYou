@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().csrf();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/api/v*/registration/**", "/api/v*/users/token/refresh/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/v*/registration/**", "/api/v*/users/token/refresh/**", "/api/v*/plants/no-auth").permitAll();
         http.authorizeRequests().antMatchers("/api/v*/**").hasAnyAuthority("USER");
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
