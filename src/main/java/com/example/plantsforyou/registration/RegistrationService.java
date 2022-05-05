@@ -6,6 +6,8 @@ import com.example.plantsforyou.appuser.AppUserService;
 import com.example.plantsforyou.registration.token.ConfirmationToken;
 import com.example.plantsforyou.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +20,27 @@ public class RegistrationService {
     private final AppUserService appUserService;
     private final EmailValidator emailValidator;
     private ConfirmationTokenService confirmationTokenService;
+    private JavaMailSender emailSender;
 
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
         if(!isValidEmail){
             throw new IllegalStateException("email not valid");
         }
-        return appUserService.signUpUser(new AppUser(
+        String token =  appUserService.signUpUser(new AppUser(
                 request.getFirstName(),
                 request.getLastName(),
                 request.getEmail(),
                 request.getPassword(),
                 AppUserRole.USER
         ));
+        String link = "https://plants-for-you.herokuapp.com/api/v1/registration/confirm?token=" + token;
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(request.getEmail());
+        message.setSubject("Plants for you email validation");
+        message.setText("Hello " + request.getFirstName() + "\nClick this link to activate your account: " + link);
+        emailSender.send(message);
+        return token;
     }
 
     @Transactional
