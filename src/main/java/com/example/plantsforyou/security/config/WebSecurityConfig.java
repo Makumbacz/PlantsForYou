@@ -35,10 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+        http.cors();
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/api/v*/registration/**", "/api/v*/users/token/refresh/**", "/api/v*/plants/no-auth").permitAll();
-        http.cors();
-        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/v*/**").hasAnyAuthority("USER");
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
