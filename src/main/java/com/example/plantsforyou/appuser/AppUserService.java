@@ -1,5 +1,9 @@
 package com.example.plantsforyou.appuser;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.plantsforyou.registration.token.ConfirmationToken;
 import com.example.plantsforyou.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
@@ -11,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -57,9 +60,17 @@ public class AppUserService implements UserDetailsService {
         return token;
     }
     public List<AppUser> getAppUsers(){ return appUserRepository.findAll(); }
-    public Optional<AppUser> getAppUser(String email){ return appUserRepository.findByEmail(email); }
+
+    public AppUser getAppUser(String email){ return appUserRepository.findByEmail(email).orElseThrow(() ->  new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
+    }
 
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
+    }
+
+    public AppUser getUserFromToken(String token){
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256("secret".getBytes())).build();
+        DecodedJWT decodedJWT = verifier.verify(token);
+        return getAppUser((String) decodedJWT.getSubject());
     }
 }

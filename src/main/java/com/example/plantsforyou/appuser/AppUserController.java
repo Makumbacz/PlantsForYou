@@ -39,21 +39,21 @@ public class AppUserController {
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String username = decodedJWT.getSubject();
-                Optional<AppUser> opt = appUserService.getAppUser(username);
+                AppUser opt = appUserService.getAppUser(username);
                 AppUser user;
-                if(opt.isPresent()){
-                    user = opt.get();
-                    String access_token = JWT.create()
-                            .withSubject(user.getEmail())
-                            .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) //10 mins
-                            .withIssuer(request.getRequestURL().toString())
-                            .sign(algorithm);
-                    Map<String, String> tokens = new HashMap<>();
-                    tokens.put("access_token", access_token);
-                    tokens.put("refresh_token", refresh_token);
-                    response.setContentType(APPLICATION_JSON_VALUE);
-                    new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-                }
+
+                user = opt;
+                String access_token = JWT.create()
+                        .withSubject(user.getEmail())
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) //10 mins
+                        .withIssuer(request.getRequestURL().toString())
+                        .sign(algorithm);
+                Map<String, String> tokens = new HashMap<>();
+                tokens.put("access_token", access_token);
+                tokens.put("refresh_token", refresh_token);
+                response.setContentType(APPLICATION_JSON_VALUE);
+                new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+
             }catch (Exception exception){
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());

@@ -23,15 +23,15 @@ public class PlantManagementController {
     }
 
     @PostMapping
-    public ResponseEntity addNewPlant(@RequestBody Plant plant){
+    public ResponseEntity<Object> addNewPlant(@RequestBody Plant plant){
         plantService.addPlant(plant);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{plantID}")
-    public ResponseEntity deletePlant(@PathVariable("plantID") Long plantID){
+    public ResponseEntity<Object> deletePlant(@PathVariable("plantID") Long plantID){
         plantService.delete(plantID);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping(path = "{plantID}/inStock")
