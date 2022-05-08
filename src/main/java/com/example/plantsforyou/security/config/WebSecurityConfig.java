@@ -7,6 +7,7 @@ import com.example.plantsforyou.filter.CustomAuthorizationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,7 +22,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.cors();
         http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/v*/registration/**", "/api/v*/users/token/refresh/**", "/api/v*/plants/no-auth").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v*/plants").permitAll();
+        http.authorizeRequests().antMatchers("/api/v*/registration/**", "/api/v*/users/token/refresh/**").permitAll();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/v*/**").hasAnyAuthority("USER");
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
