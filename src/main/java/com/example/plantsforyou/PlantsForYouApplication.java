@@ -35,11 +35,11 @@ public class PlantsForYouApplication {
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp-relay.sendinblue.com");
+        mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("blazemakul@gmail.com");
-        mailSender.setPassword("PGyj0SJhY4TO9pBc");
+        mailSender.setUsername(System.getenv().get("SMTP_USERNAME"));
+        mailSender.setPassword(System.getenv().get("SMTP_PASSWORD"));
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
