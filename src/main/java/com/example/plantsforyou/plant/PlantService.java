@@ -22,10 +22,11 @@ public class PlantService {
         return plantRepository.findAll();
     }
     public Plant findPlantById(Long plantID) throws RejectedRequestException {
-        if(plantRepository.existsById(plantID)){
-            return plantRepository.getById(plantID);
+        Optional<Plant> plant = plantRepository.findById(plantID);
+        if(plant.isPresent()){
+            return plant.get();
         }
-        throw new RejectedRequestException("Item does not exist",HttpStatus.BAD_REQUEST);
+        throw new RejectedRequestException("Plant does not exist",HttpStatus.BAD_REQUEST);
     }
     public void addPlant(Plant plant){
         plantRepository.save(plant);

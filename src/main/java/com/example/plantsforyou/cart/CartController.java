@@ -32,12 +32,13 @@ public class CartController {
 
     @PostMapping
     public ResponseEntity<Object> addToCart(@RequestBody AddToCartDto addToCartDto) throws RejectedRequestException {
-        String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer: ".length());
+        String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
         AppUser appUser = appUserService.getUserFromToken(token);
         Plant plant = plantService.findPlantById(addToCartDto.getPlantId());
         cartService.addToCart(addToCartDto, plant, appUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
 
 
