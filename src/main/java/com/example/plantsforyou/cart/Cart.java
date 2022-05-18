@@ -29,10 +29,7 @@ public class Cart {
 
     private int quantity;
 
-    public Cart(Date createdDate, Plant plant, AppUser appUser, int quantity) {
-        this.createdDate = createdDate;
 
-    }
 
     public Cart(Plant plant, Integer quantity, AppUser appUser) {
         this.plant = plant;

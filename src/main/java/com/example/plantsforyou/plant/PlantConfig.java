@@ -16,6 +16,7 @@ public class PlantConfig {
             Plant plant = new Plant(
                     "Monstera deliciosa",
                     25.12,
+                    3,
                     "Najbardziej pożądana roślina we wnętrzach ostatnich lat, czule nazwana przez nas Grzegorzem, zawdzięcza swoją popularność nie tylko wyjątkowej urodzie, ale też swojej bezproblemowości. Monstera jest jedną z tych roślin, z którymi będziesz żyć długo i szczęśliwie.",
                     PlantTypeOfLight.diffused,
                     PlantCareDifficulty.EASY,
@@ -26,6 +27,7 @@ public class PlantConfig {
             plant = new Plant(
                     "Scindapsus pictus 'Argyraeus'",
                     59.0,
+                    4,
                     "Nie ma wielkich wymagań i zdecydowanie nadaje się dla początkujących opiekunów. Z Agatką łatwo stworzysz wrażenie gęstej dżungli. Wystarczy, że spuścisz jej pnącza kurtyną z wysokiej półki, albo belki pod sufitem.",
                     PlantTypeOfLight.direct,
                     PlantCareDifficulty.MEDIUM,
