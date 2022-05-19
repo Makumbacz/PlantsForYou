@@ -3,6 +3,7 @@ package com.example.plantsforyou.plant;
 import com.example.plantsforyou.plant.enums.PlantCareDifficulty;
 import com.example.plantsforyou.plant.enums.PlantSize;
 import com.example.plantsforyou.plant.enums.PlantTypeOfLight;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 public class Plant {
 
     @Id

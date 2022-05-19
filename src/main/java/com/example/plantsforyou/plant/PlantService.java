@@ -1,6 +1,9 @@
 package com.example.plantsforyou.plant;
 
+import com.example.plantsforyou.exceptions.RejectedRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +21,13 @@ public class PlantService {
     public List<Plant> getAllPlants(){
         return plantRepository.findAll();
     }
-    public Optional<Plant> findPlantById(Long plantID){ return plantRepository.findById(plantID); }
+    public Plant findPlantById(Long plantID) throws RejectedRequestException {
+        Optional<Plant> plant = plantRepository.findById(plantID);
+        if(plant.isPresent()){
+            return plant.get();
+        }
+        throw new RejectedRequestException("Plant does not exist",HttpStatus.BAD_REQUEST);
+    }
     public void addPlant(Plant plant){
         plantRepository.save(plant);
     }
