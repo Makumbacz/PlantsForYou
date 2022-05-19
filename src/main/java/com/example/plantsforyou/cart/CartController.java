@@ -32,7 +32,7 @@ public class CartController {
     public ResponseEntity<Object> addToCart(@RequestBody ItemCartDto itemCartDto) throws RejectedRequestException {
         String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
         AppUser appUser = appUserService.getUserFromToken(token);
-        Plant plant = plantService.findPlantById(itemCartDto.getId());
+        Plant plant = plantService.findPlantById(itemCartDto.getPlantId());
         cartService.addToCart(itemCartDto, plant, appUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
