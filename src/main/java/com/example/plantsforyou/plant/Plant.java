@@ -18,6 +18,7 @@ import javax.persistence.*;
 public class Plant {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
