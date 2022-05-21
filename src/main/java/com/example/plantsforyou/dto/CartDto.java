@@ -1,6 +1,5 @@
 package com.example.plantsforyou.dto;
 
-import com.example.plantsforyou.plant.Plant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +10,12 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@AllArgsConstructor
 public class CartDto {
     List<ItemCartDto> plantsInCart;
-    double totalCost;
+    Double totalCost;
+
+    public CartDto(List<ItemCartDto> plantsInCart, Double totalCost) {
+        this.plantsInCart = plantsInCart;
+        this.totalCost = totalCost;
+    }
 }

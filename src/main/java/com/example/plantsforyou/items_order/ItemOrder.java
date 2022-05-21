@@ -16,23 +16,23 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-public class ItemsOrder {
+public class ItemOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
     @NotNull
-    private Integer price;
+    private double price;
     @OneToOne
     @JoinColumn/*(name = "plant_id", referencedColumnName = "id")*/
     private Plant plant;
-    @OneToOne
+    @ManyToOne
     @JoinColumn/*(name = "order_id", referencedColumnName = "id")*/
     private Order order;
     @NotNull
     private Integer quantity;
 
-    public ItemsOrder(Integer price, Plant plant, Order order, Integer quantity) {
+    public ItemOrder(Integer price, Plant plant, Order order, Integer quantity) {
         this.date = new Date();
         this.price = price;
         this.plant = plant;

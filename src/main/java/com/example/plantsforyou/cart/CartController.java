@@ -3,7 +3,7 @@ package com.example.plantsforyou.cart;
 import com.example.plantsforyou.appuser.AppUser;
 import com.example.plantsforyou.appuser.AppUserService;
 import com.example.plantsforyou.dto.CartDto;
-import com.example.plantsforyou.dto.ItemCartDto;
+import com.example.plantsforyou.dto.AddToCartDto;
 import com.example.plantsforyou.exceptions.RejectedRequestException;
 import com.example.plantsforyou.plant.Plant;
 import com.example.plantsforyou.plant.PlantService;
@@ -29,11 +29,19 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addToCart(@RequestBody ItemCartDto itemCartDto) throws RejectedRequestException {
+    public ResponseEntity<Object> addToCart(@RequestBody AddToCartDto itemCartDto) throws RejectedRequestException {
         String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
         AppUser appUser = appUserService.getUserFromToken(token);
         Plant plant = plantService.findPlantById(itemCartDto.getPlantId());
         cartService.addToCart(itemCartDto, plant, appUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @GetMapping()
+    public ResponseEntity<CartDto> getItemsFromCart(){
+        String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
+        AppUser appUser = appUserService.getUserFromToken(token);
+        CartDto cartDto = cartService.getAllItemsFromCart(appUser);
+
+        return new ResponseEntity<>(cartDto,HttpStatus.ACCEPTED);
     }
 }
