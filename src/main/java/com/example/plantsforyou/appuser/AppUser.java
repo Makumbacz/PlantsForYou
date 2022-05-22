@@ -40,6 +40,7 @@ public class AppUser implements UserDetails {
     private AppUserRole appUserRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+    private Boolean oAuth = false;
 
 
     public AppUser(String firstName,
@@ -53,6 +54,19 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.appUserRole = appUserRole;
 
+    }
+
+    public AppUser(String firstName,
+                   String lastName,
+                   String email,
+                   AppUserRole appUserRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.appUserRole = appUserRole;
+        this.oAuth = true;
+        this.password = null;
+        this.enabled = true;
     }
 
     @Override
