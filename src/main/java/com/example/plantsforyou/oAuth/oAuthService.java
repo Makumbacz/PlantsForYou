@@ -29,7 +29,7 @@ public class oAuthService {
     public GoogleIdToken validate(String token) throws GeneralSecurityException, IOException {
         try {
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, factory)
-                    .setAudience(Collections.singletonList("676799456601-2962t9gojc4bgukov2ptmte48m3pqtlc.apps.googleusercontent.com"))
+                    .setAudience(Collections.singletonList("676799456601-hu3k0k4ko7h7s52t8p7quk7kqho87umb.apps.googleusercontent.com"))
                     .build();
             return verifier.verify(token);
         }
