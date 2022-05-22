@@ -55,11 +55,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
             String email = credentials.getUsername();
             String password = credentials.getPassword();
-            Boolean oAuth = credentials.getOAuth();
+            String oAuth = credentials.getOAuth();
             log.info("Email is: {}", email);
             log.info("Password is: {}", password);
             UsernamePasswordAuthenticationToken authenticationToken = null;
-            if(oAuth){
+            if(oAuth.equals("true")){
                 GoogleIdToken idToken = authService.validate(password);
                 if(idToken != null) {
                     GoogleIdToken.Payload payload =  idToken.getPayload();

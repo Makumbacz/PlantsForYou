@@ -3,15 +3,13 @@ package com.example.plantsforyou.appuser;
 public class LoginCredentials {
     private String username;
     private String password;
-    private Boolean oAuth;
+    private String oauth;
 
     public String getUsername() {
         return username;
     }
-
     public String getPassword() {
         return password;
     }
-
-    public Boolean getOAuth() { return oAuth;  }
+    public String getOAuth() { return oauth;  }
 }
