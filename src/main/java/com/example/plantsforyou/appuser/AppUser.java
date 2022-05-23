@@ -65,7 +65,7 @@ public class AppUser implements UserDetails {
         this.email = email;
         this.appUserRole = appUserRole;
         this.oAuth = true;
-        this.password = null;
+        this.password = "none";
         this.enabled = true;
     }
 
