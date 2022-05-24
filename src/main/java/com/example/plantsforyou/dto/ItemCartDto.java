@@ -15,8 +15,8 @@ public class ItemCartDto {
     private Integer quantity;
 
     public ItemCartDto(Cart cart){
-        this.id = getId();
-        this.plant = getPlant();
-        this.quantity = getQuantity();
+        this.id = cart.getId();
+        this.plant = cart.getPlant();
+        this.quantity = cart.getQuantity();
     }
 }

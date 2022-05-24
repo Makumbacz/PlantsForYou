@@ -37,6 +37,7 @@ public class OrderService {
         order.setTotalPrice(cartDto.getTotalCost());
         order.setStreet(placeOrderDto.getStreet());
         order.setStatus("Waiting for payment");
+        orderRepository.save(order);
 
         for (ItemCartDto itemCartDto:
              itemCartDtos) {

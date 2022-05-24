@@ -24,10 +24,10 @@ public class ItemOrder {
     @NotNull
     private double price;
     @OneToOne
-    @JoinColumn/*(name = "plant_id", referencedColumnName = "id")*/
+    @JoinColumn(name = "plant_id", referencedColumnName = "id")
     private Plant plant;
     @ManyToOne
-    @JoinColumn/*(name = "order_id", referencedColumnName = "id")*/
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
     @NotNull
     private Integer quantity;
