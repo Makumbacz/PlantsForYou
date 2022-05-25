@@ -24,6 +24,7 @@ public class Plant {
     private String name;
     private double price;
     private int quantity;
+    private String imgURL;
     @Column(columnDefinition="TEXT")
     private String description;
     @Enumerated(EnumType.STRING)
@@ -44,6 +45,18 @@ public class Plant {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.description = description;
+        this.typeOfLight = typeOfLight;
+        this.difficulty = difficulty;
+        this.size = size;
+        this.inStock = inStock;
+    }
+
+    public Plant(String name, double price, int quantity, String imgURL, String description, PlantTypeOfLight typeOfLight, PlantCareDifficulty difficulty, PlantSize size, boolean inStock) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.imgURL = imgURL;
         this.description = description;
         this.typeOfLight = typeOfLight;
         this.difficulty = difficulty;
