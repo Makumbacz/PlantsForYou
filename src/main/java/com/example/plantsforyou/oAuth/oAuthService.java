@@ -45,7 +45,7 @@ public class oAuthService {
             return null;
         }
     }
-    public Optional<AppUser> findByEmail(String email){ return userService.getAppUser(email); }
+    public Optional<AppUser> findByEmail(String email){ return Optional.ofNullable(userService.getAppUser(email)); }
 
     public void singUpUser(GoogleIdToken.Payload payload){
         AppUser user = new AppUser((String) payload.get("name"), (String) payload.get("family_name"), payload.getEmail(), AppUserRole.USER);
