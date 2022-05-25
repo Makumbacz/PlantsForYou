@@ -40,7 +40,7 @@ public class Order {
     @JoinColumn(name = "appuser_id", referencedColumnName = "id")
     private AppUser appUser;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany
     private List<ItemOrder> itemsOrders;
 
     private String status;
