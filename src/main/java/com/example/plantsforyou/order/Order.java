@@ -34,15 +34,12 @@ public class Order {
     private Date createdDate;
 
     private double totalPrice;
-
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "appuser_id", referencedColumnName = "id")
     private AppUser appUser;
-
     @OneToMany
     private List<ItemOrder> itemsOrders;
-
     private String status;
 
     public Order(String postalCode, String street, String city, String phoneNumber, double totalPrice, AppUser appUser, List<ItemOrder> itemsOrders, String status) {
