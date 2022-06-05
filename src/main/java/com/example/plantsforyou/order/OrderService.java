@@ -49,6 +49,15 @@ public class OrderService {
             itemOrder.setOrder(order);
             itemOrderRepository.save(itemOrder);
         }
-        //todo:delete items from cart
+
+  //      cartService.deleteItemsFromCart(appUser);
+
+    }
+    List<Order> getAllOrdersFromUserId(Long id){
+        return orderRepository.findAllByAppUserIdOrderByCreatedDateDesc(id);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }

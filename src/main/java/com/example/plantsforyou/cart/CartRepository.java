@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface CartRepository extends JpaRepository<Cart, Long> {
     Optional<Cart> findByPlantAndAppUser(Plant plant, AppUser appUser);
     List<Cart> findAllByAppUserOrderByCreatedDate(AppUser appUser);
+    void deleteByAppUser(AppUser appUser);
 }

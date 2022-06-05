@@ -7,11 +7,11 @@ import com.example.plantsforyou.dto.PlaceOrderDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("api/v1/order")
@@ -35,5 +35,17 @@ public class OrderController {
         orderService.placeOrder(placeOrderDto,appUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @GetMapping()
+    public ResponseEntity<List<Order>>getAllOrdersFromUser(){
+        String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
+        AppUser appUser = appUserService.getUserFromToken(token);
+        return new ResponseEntity<>(orderService.getAllOrdersFromUserId(appUser.getId()), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public List<Order> getAllOrdersFromBase(){
+        return orderService.getAllOrders();
+    }
+
 
 }

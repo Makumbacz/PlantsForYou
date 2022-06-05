@@ -26,7 +26,7 @@ public class ItemOrder {
     @OneToOne
     @JoinColumn(name = "plant_id", referencedColumnName = "id")
     private Plant plant;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
     @NotNull
