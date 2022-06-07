@@ -24,6 +24,7 @@ public class Cart {
     @JoinColumn(name = "plant_id", referencedColumnName = "id")
     private Plant plant;
     @JsonIgnore
+    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     @OneToOne(targetEntity = AppUser.class)
     private AppUser appUser;
 

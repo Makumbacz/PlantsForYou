@@ -41,7 +41,7 @@ public class PlantConfig {
                     "Anturium Andrego",
                     59,
                     3,
-                    "https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_red-anthurium_small_kent_white.jpg?v=1652382922",
+                    "https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_red-anthurium_small_upcycled-saucer_stonewash.jpg?v=1653589431",
                     "Znane także jako kwiat flaminga, Anthurium jest najdłużej kwitnącą rośliną domową na świecie. Rzadko można spotkać ją bez efektownych kwiatów.",
                     PlantTypeOfLight.shadow,
                     PlantCareDifficulty.EASY,

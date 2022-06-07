@@ -5,8 +5,10 @@ import com.example.plantsforyou.cart.CartService;
 import com.example.plantsforyou.dto.CartDto;
 import com.example.plantsforyou.dto.ItemCartDto;
 import com.example.plantsforyou.dto.PlaceOrderDto;
+import com.example.plantsforyou.exceptions.RejectedRequestException;
 import com.example.plantsforyou.items_order.ItemOrder;
 import com.example.plantsforyou.items_order.ItemOrderRepository;
+import com.example.plantsforyou.plant.PlantService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -14,17 +16,19 @@ import java.util.List;
 
 @Service
 public class OrderService {
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
     private final CartService cartService;
     private final ItemOrderRepository itemOrderRepository;
+    private final PlantService plantService;
 
-    public OrderService(OrderRepository orderRepository, CartService cartService, ItemOrderRepository itemOrderRepository) {
+    public OrderService(OrderRepository orderRepository, CartService cartService, ItemOrderRepository itemOrderRepository, PlantService plantService) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.itemOrderRepository = itemOrderRepository;
+        this.plantService = plantService;
     }
 
-    public void placeOrder(PlaceOrderDto placeOrderDto, AppUser appUser) {
+    public void placeOrder(PlaceOrderDto placeOrderDto, AppUser appUser) throws RejectedRequestException {
         CartDto cartDto = cartService.getAllItemsFromCart(appUser);
         List<ItemCartDto> itemCartDtos = cartDto.getPlantsInCart();
 
@@ -48,7 +52,18 @@ public class OrderService {
             itemOrder.setQuantity(itemCartDto.getQuantity());
             itemOrder.setOrder(order);
             itemOrderRepository.save(itemOrder);
+
+            plantService.updateQuantity(itemCartDto.getPlant().getId(),-(itemCartDto.getQuantity()));
         }
-        //todo:delete items from cart
+
+        cartService.deleteItemsFromCart(appUser);
+
+    }
+    List<Order> getAllOrdersFromUserId(Long id){
+        return orderRepository.findAllByAppUserIdOrderByCreatedDateDesc(id);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }

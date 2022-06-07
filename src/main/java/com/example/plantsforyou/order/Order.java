@@ -36,9 +36,9 @@ public class Order {
     private double totalPrice;
     @OneToOne
     @JsonIgnore
-    @JoinColumn(name = "appuser_id", referencedColumnName = "id")
+    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     private AppUser appUser;
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     private List<ItemOrder> itemsOrders;
     private String status;
 

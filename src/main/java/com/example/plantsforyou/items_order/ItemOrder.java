@@ -3,6 +3,7 @@ package com.example.plantsforyou.items_order;
 
 import com.example.plantsforyou.order.Order;
 import com.example.plantsforyou.plant.Plant;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class ItemOrder {
     @JoinColumn(name = "plant_id", referencedColumnName = "id")
     private Plant plant;
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JsonIgnore
     private Order order;
     @NotNull
     private Integer quantity;

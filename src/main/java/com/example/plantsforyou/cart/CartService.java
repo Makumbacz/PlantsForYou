@@ -26,6 +26,10 @@ public class CartService {
         if(cartRepository.findByPlantAndAppUser(plant,appUser).isPresent()){
             throw new RejectedRequestException("Plant is already in a cart", HttpStatus.BAD_REQUEST);
         }
+        if(addToCartDto.getAmountInBasket() > plant.getQuantity()){
+            throw new RejectedRequestException("You can not order more plants than we have in stock", HttpStatus.BAD_REQUEST);
+
+        }
         Cart cart = new Cart(plant,addToCartDto.getAmountInBasket(),appUser);
         cartRepository.save(cart);
     }
@@ -45,5 +49,9 @@ public class CartService {
 
     private ItemCartDto getDtoFromCart(Cart cart) {
         return new ItemCartDto(cart);
+    }
+
+    public void deleteItemsFromCart(AppUser appUser){
+         cartRepository.deleteByAppUser(appUser);
     }
 }
