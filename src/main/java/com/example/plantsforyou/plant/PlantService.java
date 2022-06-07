@@ -1,6 +1,7 @@
 package com.example.plantsforyou.plant;
 
 import com.example.plantsforyou.exceptions.RejectedRequestException;
+import org.hibernate.FetchNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.firewall.RequestRejectedException;
@@ -50,6 +51,13 @@ public class PlantService {
             toUpdate.setInStock(inStock);
             plantRepository.save(toUpdate);
         }
+    }
+    public void updateQuantity(Long plantId, int quantity) throws RejectedRequestException {
+        Plant plant = plantRepository.findById(plantId).orElseThrow(
+                () -> new RejectedRequestException("Plant does not exist",HttpStatus.BAD_REQUEST)
+        );
+        plant.setQuantity(plant.getQuantity() + quantity);
+        plantRepository.save(plant);
     }
 
 }

@@ -38,7 +38,7 @@ public class Order {
     @JsonIgnore
     @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     private AppUser appUser;
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     private List<ItemOrder> itemsOrders;
     private String status;
 

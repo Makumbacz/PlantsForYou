@@ -4,6 +4,7 @@ import com.example.plantsforyou.appuser.AppUser;
 import com.example.plantsforyou.appuser.AppUserService;
 import com.example.plantsforyou.cart.CartService;
 import com.example.plantsforyou.dto.PlaceOrderDto;
+import com.example.plantsforyou.exceptions.RejectedRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object>placeOrder(@RequestBody PlaceOrderDto placeOrderDto){
+    public ResponseEntity<Object>placeOrder(@RequestBody PlaceOrderDto placeOrderDto) throws RejectedRequestException {
         String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
         AppUser appUser = appUserService.getUserFromToken(token);
         orderService.placeOrder(placeOrderDto,appUser);
@@ -43,8 +44,8 @@ public class OrderController {
     }
 
     @GetMapping("/all")
-    public List<Order> getAllOrdersFromBase(){
-        return orderService.getAllOrders();
+    public ResponseEntity<List<Order>> getAllOrdersFromBase(){
+        return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
     }
 
 
