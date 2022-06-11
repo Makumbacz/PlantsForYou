@@ -49,8 +49,9 @@ public class OrderController {
     }
 
     @PatchMapping("/{orderId}")
-    public ResponseEntity<Order>editOrderById(@RequestBody UpdateOrderDto updateOrderDto, @PathVariable("orderId") Long id) throws RejectedRequestException {
-        return new ResponseEntity<>(orderService.editOrderById(updateOrderDto,id), HttpStatus.OK);
+    public ResponseEntity<Object>editOrderById(@RequestBody UpdateOrderDto updateOrderDto, @PathVariable("orderId") Long id) throws RejectedRequestException {
+        orderService.editOrderById(updateOrderDto,id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/all")
