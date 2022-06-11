@@ -4,14 +4,12 @@ import com.example.plantsforyou.appuser.AppUser;
 import com.example.plantsforyou.appuser.AppUserService;
 import com.example.plantsforyou.cart.CartService;
 import com.example.plantsforyou.dto.PlaceOrderDto;
+import com.example.plantsforyou.dto.UpdateOrderDto;
 import com.example.plantsforyou.exceptions.RejectedRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -44,6 +42,15 @@ public class OrderController {
         String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization").substring("Bearer ".length());
         AppUser appUser = appUserService.getUserFromToken(token);
         return new ResponseEntity<>(orderService.getAllOrdersFromUserId(appUser.getId()), HttpStatus.OK);
+    }
+    @GetMapping("/{orderId}")
+    public ResponseEntity<Order>getOrderById(@PathVariable("orderId") Long id){
+        return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{orderId}")
+    public ResponseEntity<Order>editOrderById(@RequestBody UpdateOrderDto updateOrderDto, @PathVariable("orderId") Long id) throws RejectedRequestException {
+        return new ResponseEntity<>(orderService.editOrderById(updateOrderDto,id), HttpStatus.OK);
     }
 
     @GetMapping("/all")

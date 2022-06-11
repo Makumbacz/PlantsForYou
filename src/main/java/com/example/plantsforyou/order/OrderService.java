@@ -5,10 +5,12 @@ import com.example.plantsforyou.cart.CartService;
 import com.example.plantsforyou.dto.CartDto;
 import com.example.plantsforyou.dto.ItemCartDto;
 import com.example.plantsforyou.dto.PlaceOrderDto;
+import com.example.plantsforyou.dto.UpdateOrderDto;
 import com.example.plantsforyou.exceptions.RejectedRequestException;
 import com.example.plantsforyou.items_order.ItemOrder;
 import com.example.plantsforyou.items_order.ItemOrderRepository;
 import com.example.plantsforyou.plant.PlantService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,7 +30,7 @@ public class OrderService {
         this.plantService = plantService;
     }
 
-    public void placeOrder(PlaceOrderDto placeOrderDto, AppUser appUser) throws RejectedRequestException {
+    public Long placeOrder(PlaceOrderDto placeOrderDto, AppUser appUser) throws RejectedRequestException {
         CartDto cartDto = cartService.getAllItemsFromCart(appUser);
         List<ItemCartDto> itemCartDtos = cartDto.getPlantsInCart();
 
@@ -57,6 +59,7 @@ public class OrderService {
         }
 
         cartService.deleteItemsFromCart(appUser);
+        return order.getId();
 
     }
     List<Order> getAllOrdersFromUserId(Long id){
@@ -65,5 +68,22 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
+    }
+
+    public Order editOrderById(UpdateOrderDto updateOrderDto, Long id) throws RejectedRequestException {
+        if(!orderRepository.existsById(id)){
+            throw new RejectedRequestException("Order does not exist", HttpStatus.BAD_REQUEST);
+        }
+        Order order = orderRepository.getById(id);
+        order.setStatus(updateOrderDto.getStatus());
+        order.setCity(updateOrderDto.getCity());
+        order.setPhoneNumber(updateOrderDto.getPhoneNumber());
+        order.setStreet(updateOrderDto.getStreet());
+        order.setPostalCode(updateOrderDto.getPostalCode());
+        return order;
+    }
+
+    public Order getOrderById(Long id) {
+        return orderRepository.findOrderById(id);
     }
 }
