@@ -70,7 +70,7 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order editOrderById(UpdateOrderDto updateOrderDto, Long id) throws RejectedRequestException {
+    public void editOrderById(UpdateOrderDto updateOrderDto, Long id) throws RejectedRequestException {
         if(!orderRepository.existsById(id)){
             throw new RejectedRequestException("Order does not exist", HttpStatus.BAD_REQUEST);
         }
@@ -78,7 +78,6 @@ public class OrderService {
 
         order.setStatus(updateOrderDto.getStatus());
         orderRepository.save(order);
-        return order;
     }
 
     public Order getOrderById(Long id) {
