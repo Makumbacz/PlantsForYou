@@ -9,7 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-@AllArgsConstructor
 public class AddToCartDto {
 
     /*
@@ -24,7 +23,6 @@ public class AddToCartDto {
     * \"inStock\":true,
     * \"amountInBasket\":2}]"
     * */
-    Long id;
     private @NotNull Long plantId;
     private @NotNull Integer amountInBasket;
 
