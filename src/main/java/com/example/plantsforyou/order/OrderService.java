@@ -75,11 +75,9 @@ public class OrderService {
             throw new RejectedRequestException("Order does not exist", HttpStatus.BAD_REQUEST);
         }
         Order order = orderRepository.getById(id);
+
         order.setStatus(updateOrderDto.getStatus());
-        order.setCity(updateOrderDto.getCity());
-        order.setPhoneNumber(updateOrderDto.getPhoneNumber());
-        order.setStreet(updateOrderDto.getStreet());
-        order.setPostalCode(updateOrderDto.getPostalCode());
+        orderRepository.save(order);
         return order;
     }
 
