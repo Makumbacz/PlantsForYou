@@ -85,6 +85,18 @@ public class PlantConfig {
                     true
             );
             repository.save(plant);
+            plant = new Plant(
+                    "Testenia Pospolita",
+                    0,
+                    20,
+                    "https://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_peperomia-raindrop_small_upcycled-planter-saucer_stonewash.jpg?v=1651001147",
+                    "Roślina do testowania aplikacji",
+                    PlantTypeOfLight.diffused,
+                    PlantCareDifficulty.MEDIUM,
+                    PlantSize.SMALL,
+                    true
+            );
+            repository.save(plant);
         };
     }
 }

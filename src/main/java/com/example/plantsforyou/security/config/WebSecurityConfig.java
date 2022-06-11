@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v*/plants").permitAll();
         http.authorizeRequests().antMatchers("/api/v*/registration/**", "/api/v*/users/token/refresh/**").permitAll();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers(HttpMethod.PATCH, "/api/v*/order/**");
+        //http.authorizeRequests().antMatchers(HttpMethod.PATCH, "/api/v*/order/**");
         http.authorizeRequests().antMatchers("/api/v*/**").hasAnyAuthority("USER");
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
