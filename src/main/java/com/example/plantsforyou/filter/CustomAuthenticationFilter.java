@@ -53,11 +53,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         log.info("New login request!");
-        if(authService == null){
+        if (authService == null) {
             ServletContext servletContext = request.getServletContext();
             WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
             authService = webApplicationContext.getBean(oAuthService.class);
         }
+        GoogleIdToken.Payload payload = null;
+        String payloadEmail;
         try {
             BufferedReader reader = request.getReader();
             StringBuilder stringBuilder = new StringBuilder();
@@ -73,29 +75,31 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             log.info("Email is: {}", email);
             log.info("Password is: {}", password);
             UsernamePasswordAuthenticationToken authenticationToken = null;
-            if(oAuth.equals("true")){
+            if (oAuth.equals("true")) {
                 GoogleIdToken idToken = authService.validate(password);
-                if(idToken != null) {
-                    GoogleIdToken.Payload payload =  idToken.getPayload();
-                    String payloadEmail = payload.getEmail();
+                if (idToken != null) {
+                    payload = idToken.getPayload();
+                    payloadEmail = payload.getEmail();
                     String payloadName = (String) payload.get("name");
-                    if(!authService.findByEmail(payloadEmail).isPresent()){
+                    if (!authService.findByEmail(payloadEmail).isPresent()) {
                         authService.singUpUser(payload);
                     }
                     AppUser user = authService.findByEmail(payloadEmail).get();
                     authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), "none");
                 }
-            }
-            else{
+            } else {
                 authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
             }
             return authenticationManager.authenticate(authenticationToken);
-        }
-        catch (AuthenticationException e){
+        } catch (UsernameNotFoundException e) {
+            authService.singUpUser(payload);
+            AppUser user = authService.findByEmail(payload.getEmail()).get();
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), "none");
+            return authenticationManager.authenticate(authenticationToken);
+        } catch (AuthenticationException e) {
             log.error("Error on auth");
             throw new IllegalStateException(e.getMessage());
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             log.error(e.getMessage());
             throw new IllegalArgumentException(e.getMessage());
         } catch (GeneralSecurityException e) {
