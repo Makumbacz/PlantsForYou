@@ -1,5 +1,6 @@
 package com.example.plantsforyou.appuser;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,11 +36,15 @@ public class AppUser implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
+    @JsonIgnore
     private Boolean locked = false;
+    @JsonIgnore
     private Boolean enabled = false;
+
     private Boolean oAuth = false;
 
 

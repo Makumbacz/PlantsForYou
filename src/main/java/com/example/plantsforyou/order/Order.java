@@ -3,6 +3,7 @@ package com.example.plantsforyou.order;
 import com.example.plantsforyou.appuser.AppUser;
 import com.example.plantsforyou.items_order.ItemOrder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "orders")
 public class Order {
     //todo: validation
