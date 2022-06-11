@@ -1,25 +1,15 @@
 package com.example.plantsforyou.oAuth;
 
 import com.example.plantsforyou.appuser.AppUser;
-import com.example.plantsforyou.appuser.AppUserRepository;
 import com.example.plantsforyou.appuser.AppUserRole;
-import com.example.plantsforyou.filter.CustomAuthenticationFilter;
 import com.example.plantsforyou.appuser.AppUserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;

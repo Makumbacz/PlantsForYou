@@ -1,7 +1,6 @@
 package com.example.plantsforyou.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.thoughtworks.qdox.model.expression.Add;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

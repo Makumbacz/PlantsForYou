@@ -1,10 +1,8 @@
 package com.example.plantsforyou.plant;
 
 import com.example.plantsforyou.exceptions.RejectedRequestException;
-import org.hibernate.FetchNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

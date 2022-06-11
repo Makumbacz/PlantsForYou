@@ -1,7 +1,5 @@
 package com.example.plantsforyou.dto;
 
-import com.example.plantsforyou.cart.Cart;
-import com.example.plantsforyou.plant.Plant;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

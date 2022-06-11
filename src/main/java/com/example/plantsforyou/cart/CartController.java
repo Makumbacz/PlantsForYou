@@ -3,21 +3,17 @@ package com.example.plantsforyou.cart;
 import com.example.plantsforyou.appuser.AppUser;
 import com.example.plantsforyou.appuser.AppUserService;
 import com.example.plantsforyou.dto.AddAllToCartDto;
-import com.example.plantsforyou.dto.CartDto;
 import com.example.plantsforyou.dto.AddToCartDto;
+import com.example.plantsforyou.dto.CartDto;
 import com.example.plantsforyou.exceptions.RejectedRequestException;
 import com.example.plantsforyou.plant.Plant;
 import com.example.plantsforyou.plant.PlantService;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/cart")
