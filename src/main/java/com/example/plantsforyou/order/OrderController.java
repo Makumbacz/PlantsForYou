@@ -57,6 +57,9 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAllOrdersFromBase(){
         return new ResponseEntity<>(orderService.getAllOrders(), HttpStatus.OK);
     }
-
+    @GetMapping("/all/id")
+    public ResponseEntity<List<Long>> getAllOrderIdsFromBase(){
+        return new ResponseEntity<>(orderService.getAllOrdersIds(), HttpStatus.OK);
+    }
 
 }
