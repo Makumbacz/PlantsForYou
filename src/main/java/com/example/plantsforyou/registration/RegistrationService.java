@@ -34,7 +34,7 @@ public class RegistrationService {
                 request.getPassword(),
                 AppUserRole.USER
         ));
-        String link = "https://plants-for-you.herokuapp.com/api/v1/registration/confirm?token=" + token;
+        String link = "https://plants-for-you-front-ebiz.herokuapp.com/Rejestracja/Weryfikacja?token=" + token;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(request.getEmail());
         message.setSubject("Plants for you email validation");
