@@ -48,7 +48,7 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
     }
 
-    @PatchMapping("/{orderId}")
+    @PutMapping("/{orderId}")
     public ResponseEntity<Object>editOrderById(@RequestBody UpdateOrderDto updateOrderDto, @PathVariable("orderId") Long id) throws RejectedRequestException {
         orderService.editOrderById(updateOrderDto,id);
         return new ResponseEntity<>(HttpStatus.OK);
